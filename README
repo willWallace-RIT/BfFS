@@ -1,0 +1,314 @@
+bfFS — Filesystem-to-Brainfuck Compiler
+
+A TODO-oriented README with Virtual Linux Direction
+
+---
+
+🧠 Concept
+
+bfFS is a compiler that transforms a structured filesystem into a Brainfuck program.
+
+Instead of writing code in text files, programs are defined by:
+
+- file names
+- file extensions
+- directory structure
+- traversal order
+
+The filesystem itself becomes the source code.
+
+---
+
+🎯 Expanded Goal
+
+Build a full pipeline that enables a virtual Linux-like environment running inside Brainfuck.
+
+Filesystem → IR → Bytecode → Brainfuck VM → Virtual OS
+
+This project is not about compiling the Linux kernel directly.
+It is about reconstructing a minimal OS environment inside a Brainfuck-based virtual machine.
+
+---
+
+🧱 System Architecture
+
+[ bfFS Filesystem ]
+        ↓
+[ Compiler ]
+        ↓
+[ Intermediate Representation (IR) ]
+        ↓
+[ Bytecode პროგრამs / Disk Image ]
+        ↓
+[ Brainfuck Virtual Machine ]
+        ↓
+[ Minimal Linux-like Environment ]
+
+---
+
+🔑 Core Idea
+
+Brainfuck is not the OS.
+
+👉 Brainfuck is the hardware emulator
+
+Inside it, we implement:
+
+- a virtual CPU
+- memory
+- syscalls
+- a filesystem
+- a shell
+
+---
+
+⚙️ Brainfuck Virtual Machine (Planned)
+
+Components
+
+1. Virtual CPU
+
+- [ ] Registers (R0–Rn)
+- [ ] Instruction Pointer (IP)
+- [ ] Stack Pointer (SP)
+
+2. Instruction Set (Bytecode)
+
+Example (draft):
+
+01 → LOAD
+02 → STORE
+03 → ADD
+04 → JMP
+05 → JZ (jump if zero)
+06 → SYSCALL
+
+---
+
+3. Execution Loop
+
+while true:
+  opcode = memory[IP]
+  execute(opcode)
+  IP++
+
+Implemented entirely in Brainfuck.
+
+---
+
+4. Memory Layout
+
+[ Registers ][ Program ][ Heap ][ Stack ][ I/O ]
+
+---
+
+🧩 Virtual OS Layer
+
+A minimal Linux-like abstraction layer implemented inside the VM.
+
+Syscalls (Planned)
+
+ID| Function
+0| write
+1| read
+2| open (virtual)
+3| exit
+
+---
+
+Features
+
+- [ ] Command loop (shell)
+- [ ] Program loading from memory
+- [ ] File abstraction
+- [ ] Process simulation (cooperative multitasking)
+
+---
+
+📁 bfFS as Virtual Disk
+
+The bfFS structure doubles as a disk image:
+
+bfFS → parsed → loaded into VM memory
+
+- Directories → filesystem hierarchy
+- Files → program/data blobs
+- Extensions → instructions or metadata
+
+---
+
+📁 Filesystem Specification (Compiler Input)
+
+File Naming
+
+0001_init.bf+
+0002_move.ptrr
+0003_loop.loop/
+
+---
+
+Extension → Brainfuck Mapping (MVP)
+
+Extension| Brainfuck
+".bf+"| "+"
+".bf-"| "-"
+".ptrr"| ">"
+".ptrl"| "<"
+".out"| "."
+".in"| ","
+".loop"| "["
+".end"| "]"
+
+---
+
+Directory Semantics
+
+Directory Type| Meaning
+"*.loop/"| Begin loop block "["
+"*.end/"| End loop block "]"
+other dirs| Nested execution scope
+
+---
+
+Traversal Rules
+
+- Depth-first
+- Lexicographically sorted
+- Deterministic output
+
+---
+
+⚙️ Compiler Pipeline
+
+[ Filesystem ]
+      ↓
+[ Parser ]
+      ↓
+[ IR ]
+      ↓
+[ Bytecode Generator ]
+      ↓
+[ Brainfuck Emitter ]
+
+---
+
+🧪 MVP Scope
+
+Phase 1 — Compiler
+
+- [ ] Parse directory tree
+- [ ] Map extensions → Brainfuck
+- [ ] Emit valid Brainfuck
+
+---
+
+Phase 2 — Virtual Machine
+
+- [ ] Implement bytecode interpreter in Brainfuck
+- [ ] Define instruction set
+- [ ] Build execution loop
+
+---
+
+Phase 3 — Virtual OS
+
+- [ ] Implement syscall layer
+- [ ] Add simple shell
+- [ ] Load programs from memory
+
+---
+
+Phase 4 — “Linux-like” Environment
+
+- [ ] File system abstraction
+- [ ] Multi-program execution
+- [ ] Scriptable environment
+
+---
+
+🧠 Advanced Features (Future)
+
+Register / Alias Mapping
+
+- [ ] Symbolic memory regions
+- [ ] Named registers
+- [ ] Pre-execution mapping layer
+
+---
+
+Virtual Devices
+
+- [ ] "/dev/stdout"
+- [ ] "/dev/stdin"
+- [ ] Custom virtual hardware
+
+---
+
+Multi-Pass Compilation
+
+- [ ] FS → IR
+- [ ] IR → optimized IR
+- [ ] IR → bytecode → Brainfuck
+
+---
+
+Tooling
+
+- [ ] CLI compiler
+- [ ] Debug visualizer
+- [ ] Reverse compiler (BF → bfFS)
+
+---
+
+🧱 Example (bfFS → Brainfuck)
+
+Filesystem
+
+/program/
+  0001_inc.bf+
+  0002_inc.bf+
+  0003_loop.loop/
+    0001_move.ptrr
+    0002_print.out
+  0004_loop.end/
+
+Output
+
+++[>.]
+
+---
+
+⚠️ Constraints
+
+- Brainfuck performance is extremely limited
+- VM inside Brainfuck is very slow
+- Large systems will be difficult to debug
+- True Linux compatibility is not feasible
+
+---
+
+🚀 Long-Term Vision
+
+- A filesystem-native programming model
+- A Brainfuck-hosted virtual machine
+- A minimal Linux-like environment encoded structurally
+
+---
+
+🔥 Stretch Goals
+
+- [ ] Self-hosting bfFS compiler
+- [ ] Fully interactive shell inside Brainfuck VM
+- [ ] Virtual process scheduler
+- [ ] Load and run compiled bytecode programs
+- [ ] Experimental “Brainfuck OS”
+
+---
+
+📌 Status
+
+Phase: Concept / Architecture
+Next Step:
+👉 Build compiler MVP, then implement VM execution loop in Brainfuck
+
+---
