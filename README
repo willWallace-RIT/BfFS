@@ -1,7 +1,5 @@
-TODOTODOTODOTODOTODOTODO
-
 bfFS — Filesystem-to-Brainfuck Compiler
-
+todotodotosotodotoeot
 A TODO-oriented README with Virtual Linux Direction
 
 ---
@@ -40,7 +38,7 @@ It is about reconstructing a minimal OS environment inside a Brainfuck-based vir
         ↓
 [ Intermediate Representation (IR) ]
         ↓
-[ Bytecode  / Disk Image ]
+[ Bytecode პროგრამs / Disk Image ]
         ↓
 [ Brainfuck Virtual Machine ]
         ↓
